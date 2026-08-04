@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-o^28f^#(31a*bb9iqz4j0vn-7mlj5gq$-a$2q)8*xr$@m^mu*q'
+SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-your-local-development-key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ['://onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = [ "https://workflowrefer-app.onrender.com", "localhost", "127.0.0.1",]
 
 
 # Application definition
@@ -142,5 +142,6 @@ DEFAULT_FROM_EMAIL = "noreply@workflowrefer.com"
 
 CSRF_TRUSTED_ORIGINS = [
     "https://recycled-limb-royal.ngrok-free.dev ",
+    "https://workflowrefer-app.onrender.com",
     
 ]
