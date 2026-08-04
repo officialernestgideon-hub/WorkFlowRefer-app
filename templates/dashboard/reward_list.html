@@ -1,0 +1,113 @@
+{% extends "dashboard/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}Rewards{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>Rewards</h1>
+
+        <p>Track every rewarded referral.</p>
+
+    </div>
+
+</div>
+
+<div class="stats-card">
+
+    <div class="stats-icon">
+        <i class="fa-solid fa-gift"></i>
+    </div>
+    <div class="stats-info">
+        <h2>{{ reward_count }}</h2>
+
+        <p>Total Rewards Issued</p>
+    </div>
+
+</div>
+
+<div class="reward-grid">
+
+{% for reward in rewards %}
+
+    <div class="reward-card">
+
+        <div class="reward-top">
+
+            <div class="avatar">
+
+                {{ reward.customer_name|first|upper }}
+
+            </div>
+
+            <div>
+
+                <h3>{{ reward.customer_name }}</h3>
+
+                <small>{{ reward.created_at|date:"d M Y" }}</small>
+
+            </div>
+
+            <span class="completed-badge">
+
+                Completed
+
+            </span>
+
+        </div>
+
+        <div class="reward-body">
+
+            <p>
+
+                <strong>Campaign:</strong>
+
+                {{ reward.campaign.title }}
+
+            </p>
+
+            <p>
+
+                <strong>Reward:</strong>
+
+                {{ reward.campaign.reward }}
+
+            </p>
+
+            <p>
+
+                <strong>Referrer:</strong>
+
+                {{ reward.referrer_name }}
+
+            </p>
+
+        </div>
+
+    </div>
+
+{% empty %}
+
+<div class="empty-state">
+
+    <i class="fa-solid fa-gift"></i>
+
+    <h3>No Rewards Yet</h3>
+
+    <p>
+
+        Rewarded referrals will appear here.
+
+    </p>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

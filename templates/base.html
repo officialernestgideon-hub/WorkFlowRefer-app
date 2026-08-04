@@ -1,0 +1,173 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        
+         {% comment %} TITLE {% endcomment %}
+		<title>
+            {% block title %}{% endblock %} | WorkflowRefer
+        </title>
+
+        <!-- ICONS FONT -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+        <!-- Google font -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+
+        <!-- Shared Custom stlylesheet -->
+		<link rel="stylesheet" href="{% static 'shared/css/base.css' %}">
+        
+         <!-- Page-specific CSS -->
+         {% block css %}
+         {% endblock %}
+    </head>
+
+<body>
+    {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% block header %}
+    <header>
+
+        <nav class="navbar">
+
+            <a href="/" class="logo">
+
+               <span class="logo-icon">
+                  WR
+               </span>
+
+               <span class="logo-text">
+                  WorkflowRefer
+               </span>
+            </a>
+
+            <ul class="nav-links">
+               <li><a href="#features">Features</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li>
+                    <a href="{% url 'login' %}" class="login-link">
+                        Login
+                    </a>
+                </li>
+
+                <li>        
+                    <a href="{% url 'register' %}" class="nav-btn">
+                        Get Started
+                    </a>
+                </li>
+
+            </ul>
+
+            <button class="theme-btn" aria-label="Toggle Theme">
+
+                <i class="fa-solid fa-moon"></i>
+
+            </button>
+
+            <button class="menu-btn" aria-label="Open menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+        </nav>
+
+        <div class="mobile-menu">
+        
+           <button class="close-btn" aria-label="Close menu">
+               <i class="fa-solid fa-xmark"></i>
+           </button>
+
+           <ul>
+
+               <li><a href="/">Home</a></li>
+               <li><a href="#">Features</a></li>
+               <li><a href="#">Pricing</a></li>
+               <li><a href="#">About</a></li>
+               <li><a href="#">Contact</a></li>
+               <li><a href="#">Login</a></li>
+               <li>
+                   <a href="#" class="start-btn">
+                       Get Started
+                   </a>
+               </li>
+
+           </ul>
+
+        </div>
+
+    </header>
+    {% endblock %}
+
+    {% block content%}
+    
+    {% endblock content%}
+    
+{% block footer %}
+<footer class="footer">
+
+    <div class="footer-logo">
+
+        <span class="logo-icon">WR</span>
+
+        <span class="logo-text">
+            WorkflowRefer
+        </span>
+
+    </div>
+
+    <p>
+        Helping businesses grow through smarter referral marketing.
+    </p>
+
+    <div class="footer-links">
+
+        <a href="#">About</a>
+
+        <a href="#">Pricing</a>
+
+        <a href="#">Contact</a>
+
+        <a href="#">Privacy</a>
+
+    </div>
+
+    <div class="socials">
+
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+
+        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+
+        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+
+    </div>
+
+    <small>
+        © 2026 WorkflowRefer. All rights reserved.
+    </small>
+    <a href="{% url 'logout' %}">Logout</a>
+
+</footer>
+{% endblock %}
+<script src="{% static 'shared/js/script.js' %}"></script>
+
+{% block js %}
+{% endblock %}
+
+</body>

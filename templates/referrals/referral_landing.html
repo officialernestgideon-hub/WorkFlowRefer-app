@@ -1,0 +1,152 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{{ campaign.title }}</title>
+
+    <link rel="stylesheet"
+          href="{% static 'referral/referral.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="bg-circle circle1"></div>
+    <div class="bg-circle circle2"></div>
+
+<div class="landing-wrapper">
+
+    <div class="landing-card">
+
+        <div class="hero">
+
+            <div class="badge">
+
+                <i class="fa-solid fa-gift"></i>
+
+                Referral Campaign
+
+            </div>
+
+            <h1>
+
+                {{ campaign.title }}
+
+            </h1>
+
+            <p>
+
+                {{ campaign.description }}
+
+            </p>
+
+        </div>
+
+        <div class="reward-card">
+
+            <i class="fa-solid fa-trophy"></i>
+
+            <div>
+
+                <span>Reward</span>
+
+                <h2>{{ campaign.reward }}</h2>
+
+            </div>
+
+        </div>
+
+        <form method="POST">
+
+            {% csrf_token %}
+            <div class="form-section">
+                <h3>Your Information</h3>
+
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <div class="input-box">
+                        <i class="fa-regular fa-user"></i>
+                        {{ form.referrer_name }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Your Email</label>
+
+                    <div class="input-box">
+                        <i class="fa-regular fa-envelope"></i>
+                        {{ form.referrer_email }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Friend's Information</h3>
+
+                <div class="form-group">
+                    <label>Friend's Name</label>
+                    <div class="input-box">
+                        <i class="fa-regular fa-user"></i>
+                        {{ form.customer_name }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Friend's Email</label>
+                    <div class="input-box">
+                        <i class="fa-regular fa-envelope"></i>
+                        {{ form.customer_email }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Friend's Phone</label>
+                    <div class="input-box">
+                        <i class="fa-solid fa-phone"></i>
+                        {{ form.customer_phone }}
+                    </div>
+                </div>
+            </div>
+
+            <button
+                type="submit"
+                class="submit-btn">
+                <i class="fa-solid fa-paper-plane"></i>
+                Submit Referral
+            </button>
+
+        </form>
+
+        <div class="footer-text">
+            <i class="fa-solid fa-lock"></i>
+            Your information is secure.
+            Powered by <strong>WorkflowRefer</strong>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

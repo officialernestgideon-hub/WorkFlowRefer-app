@@ -1,0 +1,407 @@
+{% extends "dashboard/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block dashboard_content %}
+<section class="content">
+
+    <!-- Dashboard Hero -->
+    <div class="dashboard-hero">
+
+        <div class="hero-text">
+            <h1 id="greeting" data-username="{{ request.user.first_name|default:request.user.username|title }}"></h1>
+
+            <p>
+            Manage your referral campaigns and grow your business from one place.
+            </p>
+
+        </div>
+
+        <a href="{% url "campaign_list" %}" class="primary-btn">
+            <i class="fa-solid fa-plus"></i>
+            Create Campaign
+        </a>
+    </div>
+
+    
+
+    <!--stats-->
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <div class="stat-icon campaigns">
+                    <i class="fa-solid fa-bullhorn"></i>
+            </div>
+
+            <div class="stat-info">
+
+                <h3>Campaigns</h3>
+
+                <h2>{{ campaign_count }}</h2>
+
+                <p>No campaigns yet</p>
+
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-icon referrals">
+                <i class="fa-solid fa-users"></i>
+            </div>
+
+            <div class="stat-info">
+
+                <h3>Referrals</h3>
+
+                <h2>{{ referral_count }}</h2>
+
+                <p>Invite your first customer</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-icon rewards">
+                <i class="fa-solid fa-gift"></i>
+            </div>
+
+            <div class="stat-info">
+
+                <h3>Rewards</h3>
+
+                <h2>{{ rewarded_count }}</h2>
+
+                <p>No rewards sent</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-icon visitors">
+                <i class="fa-solid fa-chart-line"></i>
+            </div>
+
+            <div class="stat-info">
+                <h3>Pending</h3>
+                <h2>{{ pending_count }}</h2>
+                <p>Not approved yet</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-card widget">
+        <div class="widget-header">
+            <div>
+                <h3>
+                    <i class="fa-solid fa-lightbulb"></i>
+                    Insights
+                </h3>
+                <p>
+                    Recommendations based on your activity
+                </p>
+            </div>
+        </div>
+
+        {% if insights %}
+            <div class="insight-list">
+                {% for insight in insights %}
+                    <div class="insight-item {{ insight.color }}">
+                        <div class="insight-icon">
+                            <i class="{{ insight.icon }}"></i>
+                        </div>
+
+                        <div>
+
+                            <h4>{{ insight.title }}</h4>
+                            <p>{{ insight.message }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <i class="fa-solid fa-lightbulb"></i>
+                <h4>No Insights Yet</h4>
+                <p>
+                    Keep using WorkflowRefer and helpful insights will appear here.
+                </p>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="dashboard-card widget">
+        <div class="widget-header">
+            <div>
+                <h3>
+                    <i class="fa-solid fa-chart-line"></i>
+                    Campaign Performance
+                </h3>
+                <p>Your best performing campaigns</p>
+            </div>
+            <a href="{% url 'campaign_list' %}">
+                View all
+            </a>
+        </div>
+
+        {% if top_campaigns %}
+            {% for campaign in top_campaigns %}
+            <div class="campaign-widget">
+                <div class="campaign-widget-top">
+                    <h4>{{ campaign.title }}</h4>
+                    <span>{{ campaign.progress_percentage }}%</span>
+                </div>
+
+                <div class="progress-bar">
+                    <div
+                        class="progress-fill"
+                        style="width:{{ campaign.progress_percentage }}%;"
+                    ></div>
+                </div>
+
+                <div class="campaign-widget-bottom">
+                    <small>
+                        {{ campaign.referrals.count }}
+
+                        /
+
+                        {{ campaign.referral_goal }}
+                        referrals
+                    </small>
+
+                    <small>
+                        {{ campaign.status|title }}
+                    </small>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <i class="fa-solid fa-chart-line"></i>
+                <h4>No Active Campaigns</h4>
+                <p>
+                    Create a campaign to start tracking performance.
+                </p>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="dashboard-bottom">
+
+        <!-- Recent Reward-->
+        <div class="dashboard-card widget">
+
+            <div class="widget-header">
+
+                <div>
+
+                    <h3>
+
+                        <i class="fa-solid fa-gift"></i>
+
+                        Recent Rewards
+
+                    </h3>
+
+                    <p>
+
+                        Latest rewards you've issued
+
+                    </p>
+
+                </div>
+
+                <a href="{% url 'reward_list' %}">
+
+                    View All
+
+                </a>
+
+            </div>
+
+            {% if recent_rewards %}
+
+                <div class="reward-list">
+
+                    {% for reward in recent_rewards %}
+
+                        <div class="reward-item">
+
+                            <div class="reward-icon">
+
+                                <i class="fa-solid fa-gift"></i>
+
+                            </div>
+
+                            <div class="reward-content">
+
+                                <h4>
+
+                                    {{ reward.referrer_name }}
+
+                                </h4>
+
+                                <p>
+
+                                    {{ reward.campaign.reward }}
+
+                                </p>
+
+                                <small>
+
+                                    {{ reward.created_at|timesince }} ago
+
+                                </small>
+
+                            </div>
+
+                            <span class="reward-status">
+
+                                Sent
+
+                            </span>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-state">
+
+                    <i class="fa-solid fa-gift"></i>
+
+                    <h4>
+
+                        No Rewards Yet
+
+                    </h4>
+
+                    <p>
+
+                        Rewards issued to customers will appear here.
+
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+        
+        <!-- Recent Activity -->
+        <div class="dashboard-card widget">
+            <div class="widget-header">
+                <div>
+                    <h3>
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        Recent Activity
+                    </h3>
+
+                    <p>Your latest referral updates</p>
+                </div>
+
+                <a href="{% url 'referral_list' %}">
+                    View All
+                </a>
+            </div>
+
+            {% if recent_activity %}
+                <div class="activity-list">
+                    {% for referral in recent_activity %}
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fa-solid fa-user-plus"></i>
+                            </div>
+
+                            <div class="activity-content">
+                                <h4>
+                                    New Referral
+                                </h4>
+
+                                <p>
+                                    <strong>{{ referral.customer_name }}</strong>
+
+                                    was referred by
+
+                                    <strong>{{ referral.referrer_name }}</strong>
+                                </p>
+
+                                <small>
+                                    {{ referral.campaign.title }}
+
+                                    •
+
+                                    {{ referral.created_at|timesince }} ago
+                                </small>
+                            </div>
+
+                            <span class="status-badge {{ referral.status }}">
+                                {{ referral.status|title }}
+                            </span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <i class="fa-regular fa-folder-open"></i>
+                    <h4>No Activity Yet</h4>
+                    <p>
+
+                        New referrals will appear here.
+
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Quick Actions -->
+
+        <div class="dashboard-card">
+
+            <div class="card-header">
+
+                <h3>Quick Actions</h3>
+
+                <p>Get started quickly.</p>
+
+            </div>
+
+            <div class="quick-actions">
+
+                <a href="{% url 'create_campaign' %}" class="action-btn">
+                    <i class="fa-solid fa-plus"></i>
+                    Create Campaign
+                </a>
+
+                <a href="#" class="action-btn">
+                    <i class="fa-solid fa-users"></i>
+                    Invite Customers
+                </a>
+
+                <a href="{% url 'business_profile' %}" class="action-btn">
+                    <i class="fa-solid fa-building"></i>
+                    Business Profile
+                </a>
+
+                <a href="#" class="action-btn">
+
+                    <i class="fa-solid fa-chart-line"></i>
+                    View Analytics
+                </a>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</section>
+{% endblock %}

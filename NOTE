@@ -1,0 +1,133 @@
+/* ==========================
+COLOR
+========================= */
+/* Primary      #2563EB
+Primary Hover #1D4ED8
+
+Success      #10B981
+Warning      #F59E0B
+Danger       #EF4444
+Purple       #8B5CF6
+
+Background   #F8FAFC
+Surface      #FFFFFF
+
+Border       #E5E7EB
+
+Heading      #111827
+Body         #6B7280
+Muted        #9CA3AF */
+/* ==========================
+  TEXT SIZE
+========================= */
+/* Page Title          40px
+Section Title       30px
+Card Title          20px
+Body                16px
+Small               14px
+Caption             12px */
+/* ==========================
+BORDER RADIUS
+========================= */
+/* Small       10px
+Medium      14px
+Large       20px
+Round       999px */
+
+/* ==========================
+SHADOWS
+========================= */
+/* Card
+0 10px 30px rgba(0,0,0,.05)
+Hover
+0 18px 40px rgba(0,0,0,.08) */
+
+/* ==========================
+BUTTON STYLES
+========================= */
+/* .primary-btn
+.secondary-btn
+.outline-btn
+.danger-btn */
+/* ==========================
+CARD STYLE
+========================= */
+/* .dashboard-card
+.stat-card
+.form-card */
+/* ==========================
+INPUT STYLE
+========================= */
+/* border
+padding
+radius
+font-size */
+/* ==========================
+EMPTY STATE
+========================= */
+/* Icon
+Title
+Description
+Call-to-action */
+
+/* Help
+Reason given for failure:
+
+    CSRF token from POST incorrect.
+    
+In general, this can occur when there is a genuine Cross Site Request Forgery, or when Django’s CSRF mechanism has not been used correctly. For POST forms, you need to ensure:
+
+Your browser is accepting cookies.
+The view function passes a request to the template’s render method.
+In the template, there is a {% csrf_token %} template tag inside each POST form that targets an internal URL.
+If you are not using CsrfViewMiddleware, then you must use csrf_protect on any views that use the csrf_token template tag, as well as those that accept the POST data.
+The form has a valid CSRF token. After logging in in another browser tab or hitting the back button after a login, you may need to reload the page with the form, because the token is rotated after a login.
+You’re seeing the help section of this page because you have DEBUG = True in your Django settings file. Change that to False, and only the initial error message will be displayed.
+
+You can customize this page using the CSRF_FAILURE_VIEW setting. */
+
+Campaign.objects.first().referral_code
+
+from core.models import Campaign
+
+for campaign in Campaign.objects.all():
+    campaign.referral_code = f"WR-{campaign.referral_code[-6:]}"
+    campaign.save()
+
+print("Done!")
+
+=========================================
+APPROVE AND REWARD BEFORE DEPLOYING
+=========================================
+
+<div class="detail-actions">
+
+    {% if referral.status == "pending" %}
+
+        <form method="POST" action="{% url 'approve_referral' referral.id %}">
+            {% csrf_token %}
+            <button class="approve-btn">
+                <i class="fa-solid fa-check"></i>
+                Approve
+            </button>
+        </form>
+
+    {% elif referral.status == "approved" %}
+
+        <form method="POST" action="{% url 'reward_referral' referral.id %}">
+            {% csrf_token %}
+            <button class="reward-btn">
+                <i class="fa-solid fa-gift"></i>
+                Reward
+            </button>
+        </form>
+
+    {% else %}
+
+        <span class="completed-badge">
+            ✅ Referral Completed
+        </span>
+
+    {% endif %}
+
+</div>

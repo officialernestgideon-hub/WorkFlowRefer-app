@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'accounts/auth.css' %}">
+{% endblock %}
+{% block header %}
+{% endblock %}
+
+{% block content %}
+
+<section class="auth-container">
+    
+
+    <div class="auth-card">
+
+        <div class="auth-logo">
+           <span class="logo-icon">
+               WR
+           </span>
+            <h2>WorkflowRefer</h2>
+        </div>
+
+        <h1>Welcome Back</h1>
+
+        <p>Login to your WorkflowRefer account.</p>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="input-group">
+
+               <i class="fa-solid fa-user"></i>
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    autocomplete="off"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input
+                    type="password"
+                    id="password"
+                    class="password-input"
+                    name="password"
+                    placeholder="Password"
+                    autocomplete="new-password"
+                    required
+                >
+
+                <span class="toggle-password">
+                    <i class="fa-solid fa-eye"></i>
+                </span>
+            </div>
+
+            <div class="auth-options">
+
+                <a href="#">
+                    Forgot Password?
+                </a>
+
+            </div>
+
+            <button type="submit" class="auth-btn">
+                Login
+            </button>
+
+            <div class="divider">
+                <span>OR</span>
+            </div>
+
+            <div class="auth-footer">
+
+                <p>
+                    Don't have an account?
+                    <a href="{% url 'register' %}">
+                        Create one
+                    </a>
+                </p>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+</section>
+
+{% endblock %}
+{% comment %} <a href="{% url 'logout' %}">Logout</a> {% endcomment %}
+
+{% block footer %}
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'accounts/auth.js' %}"></script>
+{% endblock %}

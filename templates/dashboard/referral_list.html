@@ -1,0 +1,134 @@
+{% extends "dashboard/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}Referrals{% endblock %}
+
+{% block dashboard_content %}
+<div class="page-header">
+    <div>
+        <h1>Referrals</h1>
+        <p>
+            Track everyone referred to your campaigns.
+        </p>
+    </div>
+</div>
+
+<div class="search-box2">
+
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <form method="get" class="search-filter">
+        <input
+            type="text"
+            name="search"
+            placeholder="Search referrals..."
+            value="{{search}}"
+        >
+            <select name="status">
+
+            <option value="">All Status</option>
+
+            <option
+                value="pending"
+                {% if status == "pending" %}selected{% endif %}
+            >
+                Pending
+            </option>
+
+            <option
+                value="approved"
+                {% if status == "approved" %}selected{% endif %}
+            >
+                Approved
+            </option>
+
+            <option
+                value="rewarded"
+                {% if status == "rewarded" %}selected{% endif %}
+            >
+                Rewarded
+            </option>
+
+        </select>
+
+        <button type="submit">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            Search
+
+        </button>
+
+    </form>
+
+</div>
+
+{% if referrals %}
+
+<div class="referral-grid">
+
+{% for referral in referrals %}
+
+<div class="referral-card">
+    <div class="referral-header">
+        <div class="avatar">
+            {{ referral.customer_name|first|upper }}
+        </div>
+
+        <div>
+            <h3>{{ referral.customer_name }}</h3>
+            <p>{{ referral.customer_email }}</p>
+        </div>
+    </div>
+
+    <div class="referral-info">
+
+        <p>
+            <strong>Campaign:</strong>
+            {{ referral.campaign.title }}
+        </p>
+
+        <p>
+            <strong>Submitted:</strong>
+            {{ referral.created_at|date:"M d, Y" }}
+        </p>
+    </div>
+
+    <div class="card-bottom">
+        <span class="status {{ referral.status }}">
+            {{ referral.get_status_display }}
+        </span>
+
+        <a
+            href="{% url 'referral_detail' referral.id %}"
+            class="view-btn"
+        >
+            <i class="fa-regular fa-eye"></i>
+            View
+        </a>
+    </div>
+</div>
+
+{% endfor %}
+
+
+
+{% else %}
+
+<div class="empty-page">
+
+    <i class="fa-solid fa-users"></i>
+
+    <h2>No Referrals Yet</h2>
+
+    <p>
+
+        Once customers submit referrals through your campaigns,
+        they'll appear here.
+
+    </p>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

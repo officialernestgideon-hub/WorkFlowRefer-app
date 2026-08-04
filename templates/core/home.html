@@ -1,0 +1,345 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% comment %} TITLE {% endcomment %}
+{% block title %}Home{% endblock %}
+
+{% comment %} CSS FOR APPS {% endcomment %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'core/app.css' %}">
+{% endblock %}
+
+
+{% comment %} /CONTENT/ {% endcomment %}
+{% block content %}
+
+<section class="hero">
+
+    <div class="hero-container">
+
+       <div class="hero-content">
+           <span class="hero-badge">
+                <i class="fa-solid fa-share-nodes"></i>
+                Built for Modern Businesses
+           </span>
+
+           <h1>
+               Turn Every Happy Customer Into Your Next Customer
+           </h1>
+
+           <p>
+               WorkflowRefer helps businesses launch referral campaigns, 
+               reward customers, and track every referral from one simple platform.
+           </p>
+
+           <div class="hero-buttons">
+
+               <a href="{% url "register"%}" class="primary-btn">
+                   Get Started
+               </a>
+
+               <a href="#" class="secondary-btn">
+                   <i class="fa-solid fa-play"></i>
+                   Watch Demo
+               </a>
+           </div>   
+
+        </div>
+
+       {% comment %} </--hero image--/> {% endcomment %}
+       <div class="hero-image">
+           <div class="dashboard-preview">
+
+                   <div class="dashboard-header">
+                       <span></span>
+                       <span></span>
+                       <span></span>
+                   </div>
+
+                   <div class="dashboard-body">
+
+                       <div class="card-small">
+                           <h4>Active Campaigns</h4>
+                           <h2>24</h2>
+                          </div>
+
+                       <div class="card-small">
+                           <h4>Referrals</h4>
+                           <h2>1,482</h2>
+                       </div>
+
+                       <div class="card-large">
+                        <h4>Total Rewards</h4>
+                        <h2>₦2.4M</h2>
+                       </div>
+
+                   </div>
+
+           </div>
+       </div>
+    </div>
+
+</section>
+
+<section class="how-it-works">
+
+    <div class="section-title">
+
+        <h2>How WorkflowRefer Works</h2>
+
+        <p>
+            Launch your referral program in three simple steps.
+        </p>
+
+    </div>
+
+    <div class="steps">
+
+        <div class="step-card">
+
+            <div class="step-number">1</div>
+
+            <i class="fa-solid fa-bullhorn"></i>
+
+            <h3>Create Campaign</h3>
+
+            <p>
+                Create referral campaigns that match your business goals.
+            </p>
+
+        </div>
+
+        <div class="step-card">
+
+            <div class="step-number">2</div>
+
+            <i class="fa-solid fa-share-nodes"></i>
+
+            <h3>Share Referral Link</h3>
+
+            <p>
+                Customers share their unique referral links with friends.
+            </p>
+
+        </div>
+
+        <div class="step-card">
+
+            <div class="step-number">3</div>
+
+            <i class="fa-solid fa-gift"></i>
+
+            <h3>Reward Success</h3>
+
+            <p>
+                Automatically track referrals and reward successful ones.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="testimonials">
+
+    <div class="section-title">
+        <h2>Loved by Growing Businesses</h2>
+        <p>See how businesses are growing with WorkflowRefer.</p>
+    </div>
+
+    <div class="testimonial-grid">
+
+        <div class="testimonial-card">
+
+            <div class="stars">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+            </div>
+
+            <p>
+                WorkflowRefer helped us launch our referral campaign in just a few hours. It's simple, fast, and effective.
+            </p>
+
+            <div class="user">
+
+                <div class="avatar">
+                    SJ
+                </div>
+
+                <div>
+
+                    <h4>Sarah Johnson</h4>
+
+                    <span>Marketing Manager</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="testimonial-card">
+
+            <div class="stars">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+            </div>
+
+            <p>
+                Tracking referrals has never been easier. Our team can finally focus on growing the business.
+            </p>
+
+            <div class="user">
+
+                <div class="avatar">
+                    DW
+                </div>
+
+                <div>
+
+                    <h4>David Williams</h4>
+
+                    <span>Business Owner</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="pricing">
+
+    <div class="section-title">
+        <h2>Simple Pricing</h2>
+        <p>Choose the plan that fits your business.</p>
+    </div>
+
+    <div class="pricing-grid">
+
+        <div class="price-card">
+
+            <h3>Starter</h3>
+
+            <h1>Free</h1>
+
+            <p>Perfect for trying WorkflowRefer.</p>
+
+            <ul>
+                <li><i class="fa-solid fa-circle-check"></i>  1 Campaign</li>
+                <li> <i class="fa-solid fa-circle-check"></i> 100 Referrals</li>
+                <li><i class="fa-solid fa-circle-check"></i> Basic Dashboard</li>
+            </ul>
+
+            <a href="{% url "register"%}" class="primary-btn">
+                Get Started
+            </a>
+
+        </div>
+
+        <div class="price-card featured">
+
+            <span class="popular">
+                Most Popular
+            </span>
+
+            <h3>Professional</h3>
+
+            <h1>₦15,000<span>/month</span></h1>
+
+            <ul>
+                <li> <i class="fa-solid fa-circle-check"></i> Unlimited Campaigns</li>
+                <li><i class="fa-solid fa-circle-check"></i> Analytics</li>
+                <li><i class="fa-solid fa-circle-check"></i> Custom Branding</li>
+                <li><i class="fa-solid fa-circle-check"></i> Email Support</li>
+            </ul>
+
+            <a href="{% url "register"%}" class="primary-btn">
+                Start Free Trial
+            </a>
+
+        </div>
+
+        <div class="price-card">
+
+            <h3>Enterprise</h3>
+
+            <h1>Custom</h1>
+
+            <ul>
+                <li><i class="fa-solid fa-circle-check"></i> Unlimited Everything</li>
+                <li><i class="fa-solid fa-circle-check"></i> API Access</li>
+                <li><i class="fa-solid fa-circle-check"></i> Dedicated Support</li>
+                <li><i class="fa-solid fa-circle-check"></i>Custom Integrations</li>
+            </ul>
+
+            <a href="#" class="primary-btn">
+                Contact Sales
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="faq">
+
+    <div class="section-title">
+        <h2>Frequently Asked Questions</h2>
+        <p>Everything you need to know about WorkflowRefer.</p>
+    </div>
+
+    <div class="faq-container">
+
+        <details class="faq-item">
+            <summary>What is WorkflowRefer?</summary>
+            <p>
+                WorkflowRefer is a referral management platform that helps businesses create campaigns, track referrals, and reward customers.
+            </p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Do I need technical skills?</summary>
+            <p>
+                No. WorkflowRefer is designed for businesses of all sizes with an easy-to-use interface.
+            </p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Can I customize my referral campaign?</summary>
+            <p>
+                Yes. You can customize rewards, referral rules, and campaign settings.
+            </p>
+        </details>
+
+    </div>
+
+</section>
+
+
+<section class="cta">
+
+    <h2>Ready to Grow Your Business?</h2>
+
+    <p>
+        Start your first referral campaign today and turn your customers into your best marketers.
+    </p>
+
+    <a href="{% url "register"%}" class="primary-btn">
+        Start Free Trial
+    </a>
+
+</section>
+
+{% endblock content %}

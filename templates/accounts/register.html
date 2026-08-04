@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'accounts/auth.css' %}">
+{% endblock %}
+{% block header %}
+{% endblock %}
+
+{% block content %}
+
+<section class="auth-container">
+
+    <div class="auth-card">
+
+        <div class="auth-logo">
+           <span class="logo-icon">
+               WR
+           </span>
+            <h2>WorkflowRefer</h2>
+        </div>
+
+        <h1>Create Account</h1>
+
+        <p>Start growing your business with WorkflowRefer.</p>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="input-group">
+                 <i class="fa-solid fa-user"></i>
+                 {{ form.first_name }}
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-user"></i>
+                {{ form.last_name }}
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-at"></i>
+                {{ form.username }}
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-envelope"></i>
+                {{ form.email }}
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                {{ form.password1 }}
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                {{ form.password2 }}
+            </div>
+
+            <button type="submit" class="auth-btn">
+                Create Account
+            </button>
+
+        </form>
+
+        <p>
+            Already have an account?
+            <a href="{% url 'login' %}">
+                Login
+            </a>
+        </p>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

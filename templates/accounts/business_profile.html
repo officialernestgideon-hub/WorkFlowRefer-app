@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+BusinessProfile
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'accounts/auth.css' %}">
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+<section class="business-container">
+
+    <div class="business-card">
+
+        <div class="business-header">
+
+            <div class="logo-placeholder">
+                <i class="fa-solid fa-building"></i>
+            </div>
+
+            <h1>Business Profile</h1>
+
+            <p>
+                Tell us about your business so WorkflowRefer can personalize your experience.
+            </p>
+
+        </div>
+
+        <form method="POST"enctype="multipart/form-data">
+
+            {% csrf_token %}
+            <!-- Business Name -->
+            <div class="form-group">
+                <label>Business Name</label>
+        
+                <div class="input-group">
+                    <i class="fa-solid fa-building"></i>
+                    {{ form.business_name }}
+                </div>
+            </div>
+
+            <!-- Logo -->
+            <div class="form-group">
+
+                <label>Business Logo</label>
+
+                <div class="logo-upload">
+
+                     {% if form.instance.logo %}
+
+                    <img
+                        id="logoPreview"
+                        src="{{ form.instance.logo.url }}"
+                        alt="Business Logo"
+                    >
+
+                    <div class="upload-text" id="uploadText" style="display:none;">
+
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                        <span>Choose another logo</span>
+
+                    </div>
+
+                    {% else %}
+
+                    <img
+                        id="logoPreview"
+                        src=""
+                        alt="Business Logo"
+                        style="display:none;"
+                    >
+
+                    <div class="upload-text" id="uploadText">
+
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                        <span>Choose your business logo</span>
+
+                    </div>
+
+                     {% endif %}
+                     {{ form.logo }}
+
+                </div>
+            </div>
+
+            <!-- Website -->
+            <div class="form-group">
+
+                <label>Website</label>
+
+                <div class="input-group">
+
+                    <i class="fa-solid fa-globe"></i>
+
+                    {{ form.website }}
+
+                </div>
+
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+
+                <label>Business Email</label>
+
+                <div class="input-group">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    {{ form.business_email }}
+
+                </div>
+
+            </div>
+
+            <!-- Phone -->
+            <div class="form-group">
+
+                <label>Phone</label>
+
+                <div class="input-group">
+
+                    <i class="fa-solid fa-phone"></i>
+
+                    {{ form.phone }}
+
+                </div>
+
+            </div>
+
+            <!-- Industry -->
+            <div class="form-group">
+
+                <label>Industry</label>
+
+                {{ form.industry }}
+
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+
+                <label>Description</label>
+
+                {{ form.description }}
+
+            </div>
+            
+            <button type="submit" class="save-btn">
+                Save Business Profile
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'accounts/auth.js' %}"></script>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

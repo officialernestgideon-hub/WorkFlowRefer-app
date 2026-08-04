@@ -1,0 +1,250 @@
+{% extends "dashboard/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}
+Campaigns
+{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>Campaigns</h1>
+
+        <p>
+            Manage all your referral campaigns.
+        </p>
+
+    </div>
+
+    <a href="{% url 'create_campaign' %}" class="primary-btn">
+
+        <i class="fa-solid fa-plus"></i>
+
+        Create Campaign
+
+    </a>
+
+</div>
+
+
+<div class="search-wrapper">
+
+    <i class="fa-solid fa-magnifying-glass"></i>
+
+    <input
+        type="text"
+        placeholder="Search campaigns..."
+    >
+
+</div>
+
+
+{% if campaigns %}
+<!-- Campaign cards go here -->
+<div class="campaign-grid">
+
+    {% for campaign in campaigns %}
+    <div class="campaign-card">
+            <div class="campaign-header">
+                <div class="campaign-title">
+                    <a href="{% url 'campaign_detail' campaign.id %}">
+                        <h3>{{ campaign.title }}</h3>
+                    </a>
+                    <p>{{ campaign.description|truncatewords:8 }}</p>
+                </div>
+                <span class="status {{ campaign.status }}">
+                    {{ campaign.get_status_display }}
+                </span>
+            </div>
+
+            <div class="campaign-meta">
+                <div class="meta-item">
+                    <small>
+                        <i class="fa-solid fa-gift"></i>
+                        Reward
+                    </small>
+                    <strong>{{ campaign.reward }}</strong>
+                </div>
+
+                <div class="meta-item">
+                    <small>
+                        <i class="fa-solid fa-bullseye"></i>
+                        Goal
+                    </small>
+                    <strong>{{ campaign.referral_goal }}</strong>
+                </div>
+
+                <div class="meta-item">
+                    <small>
+                        <i class="fa-regular fa-calendar"></i>
+                        Duration
+                    </small>
+
+                    <strong>
+                        {{ campaign.start_date }}
+
+                        -
+
+                        {{ campaign.end_date }}
+                    </strong>
+                </div>
+            </div>
+
+            <div class="progress-section">
+                <div class="progress-text">
+                    <span>
+                        {{ campaign.referral_count }}
+
+                        /
+
+                        {{ campaign.referral_goal }}
+                        Referrals
+                    </span>
+
+                    <span>
+                        {{ campaign.progress_percentage }}%
+                    </span>
+                </div>
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill {% if campaign.progress_percentage == 100 %}completed{% endif %}"
+                        style="width: {{ campaign.progress_percentage }}%;"
+                    ></div>
+
+                </div>
+            </div>
+
+
+
+            <div class="campaign-link">
+                <label>
+                    <i class="fa-solid fa-link"></i>
+                    Referral Link
+                </label>
+
+                <div class="link-box">
+                    <input
+                        id="link-{{ campaign.id }}"
+                        type="text"
+                        readonly
+                        value="{{ request.scheme }}://{{ request.get_host }}{% url 'referral_landing' campaign.referral_code %}"
+                    >
+                    <button
+                        type="button"
+                        class="copy-btn"
+                        onclick="copyCampaignLink('{{ campaign.id }}')"
+                    >
+                        <i class="fa-regular fa-copy"></i>
+                        Copy
+                    </button>
+                </div>
+            </div>
+
+            <div class="campaign-actions">
+                <a href="{% url 'edit_campaign' campaign.id %}" class="edit-btn">
+                    <i class="fa-solid fa-pen"></i>
+                    Edit
+                </a>
+                <a href="#" class="delete-btn">
+                    <i class="fa-solid fa-trash"></i>
+                   Delete
+                </a>
+            </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+        {% comment %} <div class="campaign-card">
+
+            <div class="campaign-top">
+                <h3>{{ campaign.title }}</h3>
+                <span class="status {{ campaign.status }}">
+                    {{ campaign.get_status_display }}
+                </span>
+            </div>
+
+            <p class="campaign-description">
+                {{ campaign.description|truncatewords:20 }}
+            </p>
+
+            <div class="campaign-meta">
+                <div>
+                    <i class="fa-solid fa-gift"></i>
+                    {{ campaign.reward }}
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-users"></i>
+
+                    Goal:
+                    {{ campaign.referral_goal }}
+                </div>
+            </div>
+
+            <div class="campaign-dates">
+                <small>
+                    {{ campaign.start_date }}
+                </small>
+
+                <small>
+                    {{ campaign.end_date }}
+                </small>
+            </div>
+
+            <div class="campaign-link">
+                <label>Referral Link</label>
+                <input
+                    type="text"
+                    value="{{ request.scheme }}://{{ request.get_host }}{% url 'referral_landing' campaign.referral_code %}"
+                    readonly
+                    id="link-{{ campaign.id }}"
+                >
+                <button
+                    type="button"
+                    class="copy-btn"
+                    onclick="copyReferralLink('{{ campaign.id }}')"
+                >
+                    <i class="fa-regular fa-copy"></i>
+                    Copy Link
+                </button>
+            </div>
+
+            <div class="campaign-actions">
+
+                <a href="#">
+                    Delete
+                </a>
+
+                <a href="{% url 'edit_campaign' campaign.id %}">
+                    Edit
+                </a>
+            </div>
+        </div> {% endcomment %}
+{% else %}
+
+<div class="empty-page">
+
+    <i class="fa-solid fa-bullhorn"></i>
+
+    <h2>No Campaigns Yet</h2>
+
+    <p>
+        Create your first referral campaign and start rewarding customers for bringing in new business.
+    </p>
+
+    <a href="{% url 'create_campaign' %}" class="primary-btn">
+        <i class="fa-solid fa-bullhorn"></i>
+        Create Campaign
+    </a>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

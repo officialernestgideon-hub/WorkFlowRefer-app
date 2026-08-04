@@ -1,0 +1,154 @@
+{% extends "dashboard/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}
+Create Campaign
+{% endblock %}
+
+{% block dashboard_content %}
+
+<section class="campaign-form-page">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>Create Campaign</h1>
+
+            <p>
+                Launch a referral campaign that rewards your customers.
+            </p>
+
+        </div>
+
+        <a href="{% url 'campaign_list' %}" class="back-link">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back to Campaigns
+
+        </a>
+
+    </div>
+
+    <div class="form-card">
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <!-- Campaign Name -->
+            <div class="form-group">
+
+                <label>Campaign Name</label>
+
+                <div class="input-group">
+
+                    <i class="fa-solid fa-bullhorn"></i>
+
+                    {{ form.title }}
+
+                </div>
+
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+
+                <label>Description</label>
+
+                <div class="input-group textarea-group">
+
+                    <i class="fa-solid fa-align-left"></i>
+
+                    {{ form.description }}
+
+                </div>
+
+            </div>
+
+            <!-- Reward -->
+            <div class="form-group">
+
+                <label>Reward</label>
+
+                <div class="input-group">
+
+                    <i class="fa-solid fa-gift"></i>
+
+                    {{ form.reward }}
+
+                </div>
+
+            </div>
+
+            <!-- Goal -->
+            <div class="form-group">
+
+                <label>Referral Goal</label>
+
+                <div class="input-group">
+
+                    <i class="fa-solid fa-users"></i>
+
+                    {{ form.referral_goal }}
+
+                </div>
+
+            </div>
+
+            <!-- Status -->
+            <div class="form-group">
+
+                <label>Status</label>
+
+                {{ form.status }}
+
+            </div>
+
+            <!-- Dates -->
+            <div class="date-grid">
+
+                <div class="form-group">
+
+                    <label>Start Date</label>
+
+                    {{ form.start_date }}
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>End Date</label>
+
+                    {{ form.end_date }}
+
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+
+                <a href="{% url 'campaign_list' %}" class="outline-btn">
+
+                    Cancel
+
+                </a>
+
+                <button type="submit" class="primary-btn">
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+
+                    Create Campaign
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

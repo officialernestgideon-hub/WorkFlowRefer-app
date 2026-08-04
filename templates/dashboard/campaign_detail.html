@@ -1,0 +1,149 @@
+{% extends "dashboard/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}
+{{ campaign.title }}
+{% endblock %}
+
+{% block dashboard_content %}
+
+<section class="content">
+
+    <a href="{% url 'campaign_list' %}" class="back-link">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to Campaigns
+    </a>
+
+    <div class="campaign-detail-card">
+
+        <div class="campaign-detail-header">
+
+            <div>
+
+                <h1>{{ campaign.title }}</h1>
+
+                <p>{{ campaign.description }}</p>
+
+            </div>
+
+            <span class="status {{ campaign.status }}">
+                {{ campaign.get_status_display }}
+            </span>
+
+        </div>
+
+        <div class="overview-grid">
+
+            <div class="overview-item">
+
+                <i class="fa-solid fa-gift"></i>
+
+                <div>
+
+                    <small>Reward</small>
+
+                    <h3>{{ campaign.reward }}</h3>
+
+                </div>
+
+            </div>
+
+            <div class="overview-item">
+
+                <i class="fa-solid fa-bullseye"></i>
+
+                <div>
+
+                    <small>Goal</small>
+
+                    <h3>{{ campaign.referral_goal }}</h3>
+
+                </div>
+
+            </div>
+
+            <div class="overview-item">
+
+                <i class="fa-regular fa-calendar"></i>
+
+                <div>
+
+                    <small>Campaign Duration</small>
+
+                    <h3>
+
+                        {{ campaign.start_date }}
+
+                        -
+
+                        {{ campaign.end_date }}
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+            <div class="overview-item">
+
+                <i class="fa-regular fa-clock"></i>
+
+                <div>
+
+                    <small>Created</small>
+
+                    <h3>{{ campaign.created_at|date:"d M Y" }}</h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="referral-link-card">
+
+            <div class="card-header">
+
+                <h2>
+                    <i class="fa-solid fa-link"></i>
+                    Referral Link
+                </h2>
+
+                <p>
+                    Share this unique referral link with your customers.
+                </p>
+
+            </div>
+
+            <div class="copy-link-box">
+
+                <div class="copy-link-box">
+
+                    <input
+                        type="text"
+                        id="referralLink"
+                        value="{{ request.scheme }}://{{ request.get_host }}/r/{{ campaign.referral_code }}/"
+                        readonly
+                    >
+
+                    <button
+                        type="button"
+                        class="copy-btn"
+                        onclick="copyReferralLink()">
+
+                        <i class="fa-regular fa-copy"></i>
+                        Copy
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

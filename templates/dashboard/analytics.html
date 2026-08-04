@@ -1,0 +1,321 @@
+{% extends "dashboard/dashboard_base.html" %}
+
+{% block dashboard_content %}
+
+<div class="page-container">
+
+    <!-- Page Header -->
+
+    <div class="page-header analytics-header">
+
+        <div>
+
+            <span class="page-label">
+                Business Analytics
+            </span>
+
+            <h1 class="page-title">
+                Analytics
+            </h1>
+
+            <p class="page-subtitle">
+                Understand how your referral campaigns are performing.
+            </p>
+
+        </div>
+
+        <button class="secondary-btn">
+
+            <i class="fa-solid fa-download"></i>
+
+            Export
+
+        </button>
+
+    </div>
+
+    <!-- KPI Cards -->
+
+    <div class="analytics-stats">
+
+        <!-- Campaign -->
+
+        <div class="analytics-card">
+
+            <div class="analytics-icon campaigns">
+
+                <i class="fa-solid fa-bullhorn"></i>
+
+            </div>
+
+            <div>
+
+                <span class="analytics-label">
+                    Campaigns
+                </span>
+
+                <h3>{{ campaign_count }}</h3>
+
+                <small>Total Campaigns</small>
+
+            </div>
+
+        </div>
+
+        <!-- Referrals -->
+
+        <div class="analytics-card">
+
+            <div class="analytics-icon referrals">
+
+                <i class="fa-solid fa-users"></i>
+
+            </div>
+
+            <div>
+
+                <span class="analytics-label">
+                    Referrals
+                </span>
+
+                <h3>{{ referral_count }}</h3>
+
+                <small>Total Referrals</small>
+
+            </div>
+
+        </div>
+
+        <!-- Approved -->
+
+        <div class="analytics-card">
+
+            <div class="analytics-icon approved">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+            </div>
+
+            <div>
+
+                <span class="analytics-label">
+                    Approved
+                </span>
+
+                <h3>{{ approved_count }}</h3>
+
+                <small>Approved Referrals</small>
+
+            </div>
+
+        </div>
+
+        <!-- Rewarded -->
+
+        <div class="analytics-card">
+
+            <div class="analytics-icon rewarded">
+
+                <i class="fa-solid fa-gift"></i>
+
+            </div>
+
+            <div>
+
+                <span class="analytics-label">
+                    Rewarded
+                </span>
+
+                <h3>{{ rewarded_count }}</h3>
+
+                <small>Rewards Sent</small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Analytics Grid -->
+
+    <div class="analytics-grid">
+
+        <!-- Left Column -->
+
+        <div>
+
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <h3>Referral Status</h3>
+
+                    <p>
+                        Overview of referral progress.
+                    </p>
+
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="referralStatusChart"></canvas>
+                </div>
+
+            </div>
+
+            <div class="dashboard-card page-section">
+
+                <div class="card-header">
+                    <h3>Monthly Growth</h3>
+                    <p>
+                        Referral growth over time.
+                    </p>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="monthlyGrowthChart"></canvas>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Right Column -->
+
+        <div>
+
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <h3>Top Campaign</h3>
+
+                    <p>
+                        Best performing campaign.
+                    </p>
+
+                </div>
+
+                {% if top_campaign %}
+                <div class="top-campaign">
+
+                    <div class="campaign-badge">
+
+                        <i class="fa-solid fa-trophy"></i>
+
+                        Top Campaign
+
+                    </div>
+
+                    <h3>{{ top_campaign.title }}</h3>
+
+                    <p>{{ top_campaign.reward }}</p>
+
+                    <div class="progress-wrapper">
+
+                        <div class="progress-bar">
+
+                            <div
+                                class="progress-fill"
+                                style="width: {{ top_campaign_progress }}%;"
+                            ></div>
+
+                        </div>
+                        <span>{{ top_campaign_progress }}%</span>
+                    </div>
+
+                    <small>
+                        {{ top_campaign.referral_count }}
+                        referral{{ top_campaign.referral_count|pluralize }}
+                    </small>
+                </div>
+                {% else %}
+
+                <div class="empty-state">
+
+                    <i class="fa-solid fa-bullhorn"></i>
+
+                    <h4>No Campaign Yet</h4>
+
+                    <p>Create your first campaign.</p>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+            <div class="dashboard-card page-section">
+
+                <div class="card-header">
+
+                    <h3>Campaign Performance</h3>
+
+                    <p>
+                        Campaign progress overview.
+                    </p>
+
+                </div>
+
+                {% if campaign_performance %}
+                <div class="performance-list">
+                {% for campaign in campaign_performance %}
+                <div class="performance-item">
+                    <div>
+                        <strong>{{ campaign.title }}</strong>
+
+                        <small>
+                            {{ campaign.referral_count }}
+
+                            referrals
+                        </small>
+                    </div>
+
+                    <div class="performance-progress">
+
+                        <div class="progress-bar">
+
+                            <div
+                                class="progress-fill"
+                                style="width: {{ campaign.progress_percentage }}%;"
+                            ></div>
+                        </div>
+                        <span>{{ campaign.progress_percentage }}%</span>
+                    </div>
+                </div>
+
+                {% endfor %}
+
+                </div>
+
+                {% else %}
+
+                <div class="empty-state">
+
+                    <i class="fa-solid fa-chart-column"></i>
+
+                    <h4>No Campaign Data</h4>
+
+                    <p>Create campaigns to view performance.</p>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{{ pending_count|json_script:"pending-data" }}
+
+{{ approved_count|json_script:"approved-data" }}
+
+{{ rewarded_count|json_script:"rewarded-data" }}
+
+{{ growth_labels|json_script:"growth-labels" }}
+
+{{ growth_data|json_script:"growth-data" }}
+
+{% endblock %}

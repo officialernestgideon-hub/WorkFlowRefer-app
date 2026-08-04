@@ -1,0 +1,164 @@
+{% extends "dashboard/dashboard_base.html" %}
+
+{% block dashboard_content %}
+
+<div class="page-container">
+
+    <!-- Header -->
+
+    <div class="page-header notification-header">
+
+        <div>
+
+            <span class="page-label">
+                Notification Center
+            </span>
+
+            <h1 class="page-title">
+                Notifications
+            </h1>
+
+            <p class="page-subtitle">
+                Stay updated with referrals, campaigns, rewards and system activity.
+            </p>
+
+        </div>
+
+        <a
+            href="{% url 'mark_all_notifications_read' %}"
+            class="secondary-btn">
+            <i class="fa-solid fa-check-double"></i>
+            Mark all as read
+        </a>
+
+    </div>
+
+    {% if notifications %}
+
+    <div class="notification-list">
+
+        {% for notification in notifications %}
+
+        <a href="{% url 'mark_notification_read' notification.id %}" class="notification-card">
+            
+            <div class="notification-icon {{ notification.notification_type }}">
+
+                {% if notification.notification_type == "referral" %}
+                    <i class="fa-solid fa-users"></i>
+
+                {% elif notification.notification_type == "reward" %}
+                    <i class="fa-solid fa-gift"></i>
+
+                {% elif notification.notification_type == "campaign" %}
+                    <i class="fa-solid fa-bullhorn"></i>
+
+                {% else %}
+                    <i class="fa-solid fa-bell"></i>
+
+                {% endif %}
+
+            </div>
+
+            <div class="notification-body">
+
+                <div class="notification-top">
+
+                    <h4>{{ notification.title }}</h4>
+
+                    <small>
+
+                        {{ notification.created_at|timesince }} ago
+
+                    </small>
+
+                </div>
+
+                <p>
+
+                    {{ notification.message }}
+
+                </p>
+
+            </div>
+
+        </a>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-state">
+
+        <i class="fa-regular fa-bell-slash"></i>
+
+        <h3>No notifications yet</h3>
+
+        <p>
+
+            You'll see referral activity, rewards and important updates here.
+
+        </p>
+
+    </div>
+
+    {% endif %}
+
+    <div class="notification-page-footer">
+
+        <button id="clear-all-btn" class="clear-all-btn">
+
+            <i class="fa-solid fa-trash"></i>
+
+            Clear All Notifications
+
+        </button>
+
+    </div>
+
+</div>
+
+<div id="confirm-modal" class="confirm-modal">
+
+    <div class="confirm-modal-content">
+
+        <div class="confirm-icon">
+            <i class="fa-solid fa-trash"></i>
+        </div>
+
+        <h2>Clear All Notifications</h2>
+
+        <p>
+            Are you sure you want to permanently delete
+            all notifications?
+        </p>
+
+        <span>
+            This action cannot be undone.
+        </span>
+
+        <div class="confirm-actions">
+
+            <button
+                id="cancel-delete"
+                class="btn-secondary"
+            >
+                Cancel
+            </button>
+
+            <button
+                id="confirm-delete"
+                class="btn-danger"
+            >
+                Delete
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

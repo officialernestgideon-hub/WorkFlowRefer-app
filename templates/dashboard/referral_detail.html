@@ -1,0 +1,130 @@
+{% extends "dashboard/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}Referral Details{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>Referral Details</h1>
+
+        <p>Review this referral submission.</p>
+
+    </div>
+
+</div>
+
+<div class="detail-card">
+
+    <div class="detail-header">
+
+        <div class="avatar">
+
+            {{ referral.customer_name|first|upper }}
+
+        </div>
+
+        <div>
+
+            <h2>{{ referral.customer_name }}</h2>
+
+            <p>{{ referral.customer_email }}</p>
+
+        </div>
+
+        <span class="status {{ referral.status }}">
+
+            {{ referral.get_status_display }}
+
+        </span>
+
+    </div>
+
+    <div class="detail-grid">
+
+        <div class="detail-item">
+
+            <span>Referrer</span>
+
+            <h4>{{ referral.referrer_name }}</h4>
+
+        </div>
+
+        <div class="detail-item">
+
+            <span>Referrer Email</span>
+
+            <h4>{{ referral.referrer_email }}</h4>
+
+        </div>
+
+        <div class="detail-item">
+
+            <span>Campaign</span>
+
+            <h4>{{ referral.campaign.title }}</h4>
+
+        </div>
+
+        <div class="detail-item">
+
+            <span>Phone</span>
+
+            <h4>{{ referral.customer_phone|default:"Not provided" }}</h4>
+
+        </div>
+
+        <div class="detail-item">
+
+            <span>Submitted</span>
+
+            <h4>{{ referral.created_at|date:"d M Y • H:i" }}</h4>
+
+        </div>
+
+    </div>
+
+    <div class="detail-actions">
+
+        {% if referral.status == "pending" %}
+
+            <a
+                href="{% url 'approve_referral' referral.pk %}"
+                class="approve-btn"
+            >
+                <i class="fa-solid fa-check"></i>
+
+                Approve
+            </a>
+
+        {% elif referral.status == "approved" %}
+
+            <a
+            href="{% url 'reward_referral' referral.pk %}"
+            class="reward-btn"
+            >
+                <i class="fa-solid fa-gift"></i>
+
+                Reward Referral
+            </a>
+
+        {% else %}
+
+            <div class="completed-badge">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                Referral Completed
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}
