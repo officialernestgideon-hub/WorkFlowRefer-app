@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-your-local-developmen
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = [ "https://workflowrefer-app.onrender.com", "localhost", "127.0.0.1",]
+ALLOWED_HOSTS = ["workflowrefer-app.onrender.com", "localhost", "127.0.0.1",]
 
 
 # Application definition
@@ -141,7 +141,7 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 DEFAULT_FROM_EMAIL = "noreply@workflowrefer.com"
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://recycled-limb-royal.ngrok-free.dev ",
+    "https://recycled-limb-royal.ngrok-free.dev",
     "https://workflowrefer-app.onrender.com",
     
 ]
