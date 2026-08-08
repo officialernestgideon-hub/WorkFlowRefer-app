@@ -59,13 +59,6 @@ function copyCampaignLink(campaignId) {
     alert("Referral link copied!");
 }
 
-// function copyReferralLink(campaignId) {
-//     const input = document.getElementById(`link-${campaignId}`);
-//     input.select();
-//     input.setSelectionRange(0, 99999);
-//     navigator.clipboard.writeText(input.value);
-//     alert("Referral link copied!");
-// }
 // =========================
 // CAMPAIGN_DETAILS
 // =========================
@@ -110,80 +103,113 @@ if (notificationBtn && notificationDropdown) {
 
 }
 
-
 // Notifications page mark read
+
 document.querySelectorAll(".mark-read-btn").forEach(button => {
 
-    button.addEventListener("click", function(e){
+    button.addEventListener("click", function(e) {
 
         e.preventDefault();
 
         const url = this.dataset.url;
 
-        fetch(url,{
+        fetch(url, {
 
-            method:"POST",
+            method: "POST",
 
-            headers:{
+            headers: {
 
-                "X-CSRFToken":csrftoken,
+                "X-CSRFToken": csrftoken,
 
-                "X-Requested-With":"XMLHttpRequest"
+                "X-Requested-With": "XMLHttpRequest"
 
             }
 
         })
 
-        .then(response=>response.json())
+        .then(response => response.json())
 
-        .then(data=>{
-             console.log("Fetch successful", data);
+        .then(data => {
 
-            if(data.success){
+            console.log("Fetch successful", data);
 
-                const card = this.closest(".notification-item");
+            if (data.success) {
 
-                card.classList.add("removing");
-                setTimeout(()=>{
-                    card.remove();
+                const card =
+                this.closest(".notification-card");
 
-                    //removed notification
-                const body = document.querySelector(".notification-dropdown-body");
+                if (card) {
 
-                const remainingNotifications =
-                body.querySelectorAll(".notification-item");
-                console.log("Remaining:", remainingNotifications.length); 
+                    card.classList.add("removing");
 
-                if (remainingNotifications.length === 0) {
+                    setTimeout(() => {
 
-                    body.innerHTML = `
-                        <div class="notification-empty">
+                        card.remove();
 
-                            <i class="fa-regular fa-bell-slash"></i>
+                        const body =
+                        document.querySelector(".notification-list");
 
-                            <p>No notifications yet.</p>
+                        if (body) {
 
-                        </div>
-                    `;
+                            const remainingNotifications =
+                            body.querySelectorAll(
+                                ".notification-card"
+                            );
+
+                            console.log(
+                                "Remaining:",
+                                remainingNotifications.length
+                            );
+
+                            if (
+                                remainingNotifications.length === 0
+                            ) {
+
+                                body.innerHTML = `
+
+                                    <div class="empty-state">
+
+                                        <i class="fa-regular fa-bell-slash"></i>
+
+                                        <h3>No notifications yet</h3>
+
+                                        <p>
+                                            You'll see referral activity,
+                                            rewards and important updates here.
+                                        </p>
+
+                                    </div>
+
+                                `;
+
+                            }
+
+                        }
+
+                    }, 300);
+
                 }
-                },300);
 
-                // 🔔 update the count 
+
+                // 🔔 Update notification count
+
                 const badge =
-                document.getElementById("notification-count");
+                document.getElementById(
+                    "notification-count"
+                );
 
-                if(badge){
+                if (badge) {
 
                     let count =
                     parseInt(badge.textContent);
 
                     count--;
 
-                    if(count <= 0){
+                    if (count <= 0) {
 
                         badge.remove();
 
-                    }else{
+                    } else {
 
                         badge.textContent = count;
 
@@ -191,10 +217,15 @@ document.querySelectorAll(".mark-read-btn").forEach(button => {
 
                 }
 
-                // 🔔 Shake the notification bell
-                const bell = document.querySelector(".notification-btn");
 
-                if(bell){
+                // 🔔 Shake notification bell
+
+                const bell =
+                document.querySelector(
+                    ".notification-btn"
+                );
+
+                if (bell) {
 
                     bell.classList.add("shake");
 
@@ -203,9 +234,11 @@ document.querySelectorAll(".mark-read-btn").forEach(button => {
                         bell.classList.remove("shake");
 
                     }, 400);
+
                 }
-                
+
             }
+
         });
 
     });
@@ -304,7 +337,8 @@ if(markAll){
 
 const csrftoken = getCookie("csrftoken");
 
-// notification modal
+// Notification modal
+
 const modal =
 document.getElementById("confirm-modal");
 
@@ -314,92 +348,110 @@ document.getElementById("clear-all-btn");
 const cancelBtn =
 document.getElementById("cancel-delete");
 
-clearBtn.addEventListener("click",()=>{
 
-    modal.classList.add("show");
+if (modal && clearBtn && cancelBtn) {
 
-});
+    clearBtn.addEventListener("click", () => {
 
-cancelBtn.addEventListener("click",()=>{
+        modal.classList.add("show");
 
-    modal.classList.remove("show");
+    });
 
-});
 
-modal.addEventListener("click",(e)=>{
-
-    if(e.target===modal){
+    cancelBtn.addEventListener("click", () => {
 
         modal.classList.remove("show");
 
-    }
+    });
 
-});
 
-// Cornfirm delete
-const confirmDelete =
-document.getElementById("confirm-delete");
+    modal.addEventListener("click", (e) => {
 
-confirmDelete.addEventListener("click", () => {
+        if (e.target === modal) {
 
-    fetch("/notifications/clear/", {
-
-        method: "POST",
-
-        headers: {
-
-            "X-CSRFToken": csrftoken,
-
-            "X-Requested-With": "XMLHttpRequest"
-
-        }
-
-    })
-
-    .then(response => response.json())
-
-    .then(data => {
-
-        if(data.success){
-
-            // Close modal
             modal.classList.remove("show");
-
-            // Replace notifications with empty state
-            const body =
-            document.querySelector(".notification-list");
-
-            body.innerHTML = `
-
-                <div class="notification-empty">
-
-                    <i class="fa-regular fa-bell-slash"></i>
-
-                    <h3>No notifications</h3>
-
-                    <p>
-                        You're all caught up.
-                    </p>
-
-                </div>
-
-            `;
-
-            // Remove notification badge
-            const badge =
-            document.getElementById("notification-count");
-
-            if(badge){
-
-                badge.remove();
-
-            }
 
         }
 
     });
 
-});
+}
+
+// Confirm delete
+
+const confirmDelete =
+document.getElementById("confirm-delete");
+
+if (confirmDelete) {
+
+    confirmDelete.addEventListener("click", () => {
+
+        fetch("/notifications/clear/", {
+
+            method: "POST",
+
+            headers: {
+
+                "X-CSRFToken": csrftoken,
+
+                "X-Requested-With": "XMLHttpRequest"
+
+            }
+
+        })
+
+        .then(response => response.json())
+
+        .then(data => {
+
+            if (data.success) {
+
+                if (modal) {
+
+                    modal.classList.remove("show");
+
+                }
+
+                const body =
+                document.querySelector(".notification-list");
+
+                if (body) {
+
+                    body.innerHTML = `
+
+                        <div class="empty-state">
+
+                            <i class="fa-regular fa-bell-slash"></i>
+
+                            <h3>No notifications yet</h3>
+
+                            <p>
+                                You'll see referral activity,
+                                rewards and important updates here.
+                            </p>
+
+                        </div>
+
+                    `;
+
+                }
+
+                const badge =
+                document.getElementById("notification-count");
+
+                if (badge) {
+
+                    badge.remove();
+
+                }
+
+            }
+
+        });
+
+    });
+
+}
 
 // CHART ANALYTICS
 const referralChart = document.getElementById("referralStatusChart");

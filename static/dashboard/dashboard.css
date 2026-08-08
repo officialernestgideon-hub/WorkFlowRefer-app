@@ -1,4 +1,3 @@
-
 *{
     margin:0;
     padding:0;
@@ -165,8 +164,8 @@ MESSAGES
 }
 
 .content{
-    padding:40px;
-    padding-left: 15px;
+    /* padding:40px;
+    padding-left: 15px; */
     width:100%;
     box-sizing:border-box;
     margin:0 auto;
@@ -182,10 +181,6 @@ MESSAGES
     align-items:center;
     margin-bottom:40px;
 }
-
-/* .hero-text{
-    flex:1;
-} */
 
 #greeting i{
     color:var(--warning);
@@ -1693,149 +1688,449 @@ font-size:18px;
 
 }
 
-/* ==========================
-   TABLET dashboard
-========================== */
+/* =====================================================
+   TABLET RESPONSIVE
+===================================================== */
 
-@media (max-width:1024px){
+@media (max-width: 1024px) {
 
-    .sidebar{
-        width:90px;
-        padding:25px 15px;
+    .sidebar {
+        width: 90px;
+        padding: 25px 15px;
     }
 
-    .logo h2{
-        display:none;
+    .logo h2 {
+        display: none;
     }
-    .main-content{
+
+    .main-content {
         margin-left: 90px;
     }
 
-    .sidebar nav a{
-        justify-content:center;
-        padding:15px;
+    .sidebar nav a {
+        justify-content: center;
+        padding: 14px;
     }
 
-    .sidebar nav a span{
-        display:none;
+    .sidebar nav a span {
+        display: none;
     }
 
-    .sidebar nav a span{
-        display:none;
+    .sidebar nav a i {
+        font-size: 20px;
+        margin: 0;
     }
 
-    .sidebar nav a i{
-        font-size:20px;
-        margin:0;
+    .topbar {
+        padding: 18px 20px;
     }
 
-    .topbar{
-        padding:20px;
+    .search-box {
+        width: 200px;
     }
 
-    .search-box{
-        width:220px;
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .stats-grid{
-        grid-template-columns:repeat(2,1fr);
+    .dashboard-bottom {
+        grid-template-columns: 1fr;
     }
 
-    .dashboard-bottom{
-        grid-template-columns:1fr;
+    .content {
+        padding: 30px 25px;
     }
 
 }
-/* ==========================
-   MOBILE dashboard
-========================== */
 
-@media (max-width:768px){
 
-    .menu-toggle{
+/* =====================================================
+   MOBILE RESPONSIVE
+===================================================== */
 
-        display:flex;
+@media (max-width: 768px) {
 
-        align-items:center;
+    /* ---------- MAIN CONTENT ---------- */
 
-        justify-content:center;
-
-    }
-    .main-content{
-        margin-left: 0px;
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        min-width: 0;
     }
 
-    .sidebar{
-
-        position:fixed;
-
-        left:-270px;
-
-        top:0;
-
-        width:250px;
-
-        height:100vh;
-
-        z-index:999;
-
-        transition:.3s;
-
+    .content {
+        width: 100%;
+        padding: 20px 16px;
+        overflow-x: hidden;
     }
-    .dashboard-hero .primary-btn{
+
+
+    /* ---------- TOPBAR ---------- */
+
+    .topbar {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 16px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 10px;
+    }
+
+    .topbar-left {
+        display: flex;
+        align-items: center;
+        min-width: 0;
+    }
+
+    .topbar-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+    }
+
+
+    /* ---------- MENU BUTTON ---------- */
+
+    .menu-toggle {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        width: 40px;
+        height: 40px;
+
+        flex-shrink: 0;
+    }
+
+
+    /* ---------- SEARCH ---------- */
+
+    .search-box {
         display: none;
     }
-    .page-header .primary-btn{
-        padding: 10px;
-        height: 50px;
+
+
+    /* ---------- USER INFO ---------- */
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
 
-    .sidebar.active{
-
-        left:0;
-
+    .user-info > div:last-child {
+        display: none;
     }
 
-    .logo h2{
+    .user-avatar {
+        width: 38px;
+        height: 38px;
 
-        display:block;
-
+        flex-shrink: 0;
     }
 
-    .sidebar nav a{
 
-        justify-content:flex-start;
+    /* ---------- NOTIFICATION ---------- */
 
+    .notification-wrapper {
+        position: relative;
     }
 
-    .sidebar nav a span{
+    .notification-btn {
+        width: 40px;
+        height: 40px;
 
-        display:inline;
-
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .topbar{
 
-        padding:15px;
+    /* ---------- NOTIFICATION DROPDOWN ---------- */
 
+    .notification-dropdown {
+
+        position: fixed;
+
+        top: 65px;
+        left: 12px;
+        right: 12px;
+
+        width: auto;
+        max-width: none;
+
+        max-height: calc(100vh - 85px);
+
+        overflow: hidden;
+
+        z-index: 1000;
     }
 
-    .search-box{
+    .notification-dropdown-body {
 
-        display:none;
+        max-height: calc(100vh - 180px);
 
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 
-    .stats-grid{
+    .notification-item {
 
-        grid-template-columns:1fr;
-
+        padding: 14px 12px;
+        gap: 10px;
     }
 
-    .content{
+    .notification-item-body h5 {
 
-        padding:20px;
+        font-size: 13px;
 
+        line-height: 1.4;
+    }
+
+    .notification-item-body p {
+
+        font-size: 12px;
+
+        line-height: 1.5;
+
+        word-break: break-word;
+    }
+
+    .notification-item-body small {
+
+        font-size: 11px;
+    }
+
+    .mark-read-btn {
+
+        font-size: 11px;
+        margin-top: 6px;
+    }
+
+
+    /* ---------- SIDEBAR ---------- */
+
+    .sidebar {
+
+        position: fixed;
+
+        left: -270px;
+        top: 0;
+
+        width: 250px;
+        height: 100vh;
+
+        padding: 25px 18px;
+
+        z-index: 1100;
+
+        transition: left .3s ease;
+
+        overflow-y: auto;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .logo h2 {
+        display: block;
+    }
+
+    .sidebar nav a {
+
+        justify-content: flex-start;
+
+        padding: 12px 14px;
+    }
+
+    .sidebar nav a span {
+        display: inline;
+    }
+
+    .sidebar nav a i {
+
+        font-size: 17px;
+
+        margin-right: 10px;
+    }
+
+
+    /* ---------- STATS ---------- */
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+
+    /* ---------- DASHBOARD HERO ---------- */
+
+    .dashboard-hero {
+
+        padding: 20px;
+
+        border-radius: 12px;
+    }
+
+    .dashboard-hero .primary-btn {
+        display: none;
+    }
+
+    .hero-text h1 {
+
+        font-size: 20px;
+
+        line-height: 1.3;
+    }
+
+    .hero-text p {
+
+        font-size: 13px;
+
+        line-height: 1.5;
+    }
+
+
+    /* ---------- PAGE HEADER ---------- */
+
+    .page-header {
+
+        gap: 12px;
+
+        flex-wrap: wrap;
+    }
+
+    .page-header h1,
+    .page-header h2 {
+
+        font-size: 20px;
+    }
+
+    .page-header .primary-btn {
+
+        padding: 9px 13px;
+
+        height: auto;
+
+        font-size: 12px;
+    }
+
+
+    /* ---------- DASHBOARD BOTTOM ---------- */
+
+    .dashboard-bottom {
+
+        grid-template-columns: 1fr;
+
+        gap: 16px;
+    }
+
+
+    /* ---------- TABLES ---------- */
+
+    .table-container {
+
+        width: 100%;
+
+        overflow-x: auto;
+
+        -webkit-overflow-scrolling: touch;
+    }
+
+
+    /* ---------- GENERAL ---------- */
+
+    img {
+
+        max-width: 100%;
+        height: auto;
+    }
+
+    button,
+    a {
+
+        -webkit-tap-highlight-color: transparent;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL PHONES
+===================================================== */
+@media (max-width: 480px) {
+
+    .topbar {
+
+        padding: 10px 12px;
+    }
+
+    .menu-toggle,
+    .notification-btn {
+
+        width: 38px;
+        height: 38px;
+    }
+
+    .user-avatar {
+
+        width: 36px;
+        height: 36px;
+    }
+
+    .content {
+
+        padding: 16px 12px;
+    }
+
+    .dashboard-hero {
+
+        padding: 16px;
+    }
+
+    .hero-text h1 {
+
+        font-size: 18px;
+    }
+
+    .hero-text p {
+
+        font-size: 12px;
+    }
+
+    .page-header h1,
+    .page-header h2 {
+
+        font-size: 18px;
+    }
+
+    .notification-dropdown {
+
+        top: 60px;
+
+        left: 8px;
+        right: 8px;
+    }
+
+    .notification-header {
+
+        padding: 12px;
+    }
+
+    .notification-header h4 {
+
+        font-size: 14px;
+    }
+
+    .notification-header button {
+
+        font-size: 11px;
     }
 
 }
